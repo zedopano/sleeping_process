@@ -7,5 +7,6 @@ public class Node {
         this.data = dado;
         this.proximo = this;
         this.anterior = this;
+
     }
 }

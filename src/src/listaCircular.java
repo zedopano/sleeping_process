@@ -15,6 +15,7 @@ public class listaCircular {
             novoNo.anterior = ultimo;
             novoNo.proximo = inicio;
             inicio.anterior = novoNo;
+
         }
     }
 }
