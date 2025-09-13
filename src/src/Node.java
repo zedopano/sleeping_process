@@ -4,9 +4,9 @@ public class Node {
     Node anterior;
 
     public Node(int dado){
-        this.proximo = null;
-        this.anterior = null;
-        this.data = data;
+        this.data = dado;
+        this.proximo = this;
+        this.anterior = this;
 
     }
 }
