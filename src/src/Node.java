@@ -5,8 +5,8 @@ public class Node {
 
     public Node(int dado){
         this.data = dado;
-        this.proximo = this;
-        this.anterior = this;
+        this.proximo = null;
+        this.anterior = null;
 
     }
 }
