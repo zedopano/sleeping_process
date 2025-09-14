@@ -74,7 +74,7 @@ public class ListaDeProcessos {
         }
         Processo temp = head;
         do {
-            System.out.println("Ip:" + temp.ip + (temp.finished ? "[terminado]" : "") + " ");
+            System.out.println("Ip:" + temp.ip + (temp.finalizado ? "[terminado]" : "") + " ");
             temp = temp.proximo;
         } while (temp != head);
         System.out.println();
