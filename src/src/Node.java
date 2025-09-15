@@ -1,10 +1,10 @@
 public class Node {
-    int data;
+    int valor;
     Node proximo;
     Node anterior;
 
-    public Node(int dado){
-        this.data = dado;
+    public Node(int valor){
+        this.valor = valor;
         this.proximo = null;
         this.anterior = null;
 
