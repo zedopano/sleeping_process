@@ -1,16 +1,16 @@
 public class Scheduler {
 
-    ListaDeProcessos lista_alta_prioridade = new ListaDeProcessos();
-    ListaDeProcessos lista_media_prioridade = new ListaDeProcessos();
-    ListaDeProcessos lista_baixa_prioridade = new ListaDeProcessos();
-    ListaDeProcessos lista_bloqueados = new ListaDeProcessos();
+    private ListaDeProcessos lista_alta_prioridade = new ListaDeProcessos();
+    private ListaDeProcessos lista_media_prioridade = new ListaDeProcessos();
+    private ListaDeProcessos lista_baixa_prioridade = new ListaDeProcessos();
+    private ListaDeProcessos lista_bloqueados = new ListaDeProcessos();
 
-    int contador_ciclos_alta_prioridade;
     Node cabeca;
     Node cauda;
 
     public static void executarCicloDeCPU(){
-
+        int contador_ciclos_alta_prioridade = 0;
+        System.out.println("Ciclos: ", contador_ciclos_alta_prioridade);
     }
 
     public void add(int valor) { // Adicionar no final da lista
@@ -23,7 +23,6 @@ public class Scheduler {
             cauda = scheduler; // Adicionando no final da lista e encadeando
         }
     }
-    // Remove do começo (bom para escalonador)
     public int remove() { // Remover do final da lista
         if (cabeca == null) throw new RuntimeException("Lista vazia.");
         int valor = cabeca.valor;
