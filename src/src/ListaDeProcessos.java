@@ -4,7 +4,7 @@ public class ListaDeProcessos {
     ListaDeProcessos head = null;
 
     //Insere processo no final da lista;
-    void inserirProcesso(int ip) {
+    void inserirProcesso(Processo ip) {
         Processo novoProcesso = new Processo(ip);
         if (head == null) {
             head = novoProcesso;
