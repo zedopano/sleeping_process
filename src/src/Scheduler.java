@@ -4,13 +4,21 @@ public class Scheduler {
     private ListaDeProcessos lista_media_prioridade = new ListaDeProcessos();
     private ListaDeProcessos lista_baixa_prioridade = new ListaDeProcessos();
     private ListaDeProcessos lista_bloqueados = new ListaDeProcessos();
+    int contador_ciclos_alta_prioridade;
+    int ciclo;
 
     Node cabeca;
     Node cauda;
-
+    public Scheduler(){
+        this.lista_baixa_prioridade = new ListaDeProcessos();
+        this.lista_media_prioridade = new ListaDeProcessos();
+        this.lista_alta_prioridade = new ListaDeProcessos();
+        this.lista_bloqueados = new ListaDeProcessos();
+        this.ciclo = 0;
+        this.contador_ciclos_alta_prioridade = 0;
+    }
     public static void executarCicloDeCPU(){
-        int contador_ciclos_alta_prioridade = 0;
-        System.out.println("Ciclos: ", contador_ciclos_alta_prioridade);
+
     }
 
     public void add(int valor) { // Adicionar no final da lista
