@@ -1,0 +1,5 @@
+101,Editor de Texto,3,150,Disco
+102,Compilador,1,500,CPU
+103,Player de Música,2,200,Som
+104,Antivírus,1,800,Rede
+105,Navegador Web,2,350,Rede
