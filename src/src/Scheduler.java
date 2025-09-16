@@ -21,30 +21,23 @@ public class Scheduler {
 
     }
 
-    public void add(int valor) { // Adicionar no final da lista
-        Node scheduler = new Node(valor);
-        if (cabeca == null) {
-            cabeca = scheduler; // Cabeça = cauda pq aí fica uma lista encadeada, to aprendendo a manjar aq
-            cauda = scheduler; // Se esse código funcionar, me agradeçam
-        } else {               // pq eu ainda to tentando entender bulhufas dessa matéria -- Henrique (surufel)
-            cauda.proximo = scheduler;
-            cauda = scheduler; // Adicionando no final da lista e encadeando
-        }
-    }
-    public int remove() { // Remover do final da lista
-        if (cabeca == null) throw new RuntimeException("Lista vazia.");
-        int valor = cabeca.valor;
-        cabeca = cabeca.proximo;
-        if (cabeca == null) cauda = null;
-        return valor;
-    }
+public void addProc(Processo processo){
+    switch(processo.prioridade){
+        case 1: // Alta Prioridade - 1
+            lista_alta_prioridade.inserirProcesso(processo);
+            System.out.println("Adicionado na Lista de ALTA prioridade.");
+            break;
+        case 2:
+            lista_media_prioridade.inserirProcesso(processo);
+            System.out.println("Adicionado na Lista de MÉDIA prioridade.");
+            break;
+        case 3:
+            lista_baixa_prioridade.inserirProcesso(processo);
+            System.out.println("Adicionado na Lista de BAIXA prioridade.");
+            break;
+        default:
+            System.out.println("Inválido.");
 
-    public void print() { // Imprimir lista encadeada
-        Node atual = cabeca;
-        while (atual != null) {
-            System.out.print(atual.valor);
-            atual = atual.proximo;
-        }
-        System.out.println();
     }
+}
 }
