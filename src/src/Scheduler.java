@@ -1,43 +1,71 @@
+
 public class Scheduler {
+    private ListaDeProcessos lista;
+    private final int quantum = 100; // Fatia de tempo de execupara cada processo
 
-    private ListaDeProcessos lista_alta_prioridade = new ListaDeProcessos();
-    private ListaDeProcessos lista_media_prioridade = new ListaDeProcessos();
-    private ListaDeProcessos lista_baixa_prioridade = new ListaDeProcessos();
-    private ListaDeProcessos lista_bloqueados = new ListaDeProcessos();
-    int contador_ciclos_alta_prioridade;
-    int ciclo;
-
-    Node cabeca;
-    Node cauda;
-    public Scheduler(){
-        this.lista_baixa_prioridade = new ListaDeProcessos();
-        this.lista_media_prioridade = new ListaDeProcessos();
-        this.lista_alta_prioridade = new ListaDeProcessos();
-        this.lista_bloqueados = new ListaDeProcessos();
-        this.ciclo = 0;
-        this.contador_ciclos_alta_prioridade = 0;
-    }
-    public static void executarCicloDeCPU(){
-
+    public Scheduler() {
+        this.lista = new ListaDeProcessos();
     }
 
-public void addProc(Processo processo){
-    switch(processo.prioridade){
-        case 1: // Alta Prioridade - 1
-            lista_alta_prioridade.inserirProcesso(processo);
-            System.out.println("Adicionado na Lista de ALTA prioridade.");
-            break;
-        case 2:
-            lista_media_prioridade.inserirProcesso(processo);
-            System.out.println("Adicionado na Lista de MÉDIA prioridade.");
-            break;
-        case 3:
-            lista_baixa_prioridade.inserirProcesso(processo);
-            System.out.println("Adicionado na Lista de BAIXA prioridade.");
-            break;
-        default:
-            System.out.println("Inválido.");
-
+    public void carregarProcessos(String nomeDoArquivo) {
+        this.lista = LerArquivo.carregarProcessos(nomeDoArquivo);
     }
-}
+
+    public void exibirProcessos() {
+        lista.exibir();
+    }
+
+    public void iniciarSimulacao() {
+        if (lista.isVazia()) {
+            System.out.println("Nenhum processo para simular.");
+            return;
+        }
+
+        System.out.println("\n--- INICIANDO SIMULAR(Quantum: " + quantum + ") ---");
+
+        Processo atual = lista.getHead();
+        Processo anterior = lista.getTail();
+
+        // O loop principal continua enquanto a lista nestiver vazia
+        while (!lista.isVazia()) {
+
+            // 1. Executa o processo atual, "gastando" seus ciclos
+            int ciclosAtuais = atual.getCiclos_necessarios();
+            atual.setCiclos_necessarios(ciclosAtuais - quantum);
+
+            // 2. Verifica se o processo terminou nesta rodada
+            if (atual.getCiclos_necessarios() <= 0) {
+                System.out.println(">> Processo '" + atual.getNome() + "' (ID: " + atual.getId() + ") TERMINOU e foi removido.");
+
+                if (atual == anterior) {
+                    lista.setHead(null);
+                    lista.setTail(null);
+
+                    continue;
+                }
+
+                anterior.proximo = atual.proximo;
+
+
+                if (atual == lista.getHead()) {
+                    lista.setHead(atual.proximo);
+                }
+
+
+                if (atual == lista.getTail()) {
+                    lista.setTail(anterior);
+                }
+
+                // Avanpara o prprocesso a ser executado
+                atual = anterior.proximo;
+
+            } else {
+
+                anterior = atual;
+                atual = atual.proximo;
+            }
+        }
+
+        System.out.println("\n Processos concluídos!");
+    }
 }

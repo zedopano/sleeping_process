@@ -1,63 +1,39 @@
+
 public class listaCircular {
-
-    private Node cauda;
-    private int tamanho;
-
-    public listaCircular() {
-        this.cauda = null;
-        this.tamanho = 0;
-    }
+    private Processo head;
+    private Processo tail;
 
     public boolean isVazia() {
-        return this.tamanho == 0;
+        return head == null;
     }
 
-    public int getTamanho() {
-        return this.tamanho;
+    public Processo getHead() {
+        return head;
     }
 
-    public void inserirNoInicio(Object dado) {
-        Node novoNo = new Node(dado);
+    public void setHead(Processo newHead) {
+        this.head = newHead;
+    }
+
+    // NOVO QUE ESTAVA FALTANDO
+    public Processo getTail() {
+        return tail;
+    }
+
+    // NOVO QUE ESTAVA FALTANDO
+    public void setTail(Processo newTail) {
+        this.tail = newTail;
+    }
+
+    public void inserir(Processo novoProcesso) {
         if (isVazia()) {
-            this.cauda = novoNo;
-            novoNo.setProximo(novoNo);
-            novoNo.setAnterior(novoNo);
+            head = novoProcesso;
+            tail = novoProcesso;
+            tail.proximo = head;
         } else {
-            Node cabeca = cauda.getProximo();
-
-            novoNo.setProximo(cabeca);
-            cabeca.setAnterior(novoNo);
-            novoNo.setAnterior(cauda);
-            cauda.setProximo(novoNo);
+            novoProcesso.proximo = head;
+            tail.proximo = novoProcesso;
+            tail = novoProcesso;
         }
-        this.tamanho++;
-    }
-
-    public void inserirNoFim(Object dado) {
-        inserirNoInicio(dado);
-
-        if (tamanho > 1) {
-            this.cauda = this.cauda.getProximo();
-        }
-    }
-
-    public void exibirLista() {
-        if (isVazia()) {
-            System.out.println("A lista está vazia.");
-            return;
-        }
-
-        StringBuilder sb = new StringBuilder("[");
-        Node atual = cauda.getProximo();
-
-        for (int i = 0; i < tamanho; i++) {
-            sb.append(atual.getDado());
-            if (i < tamanho - 1) {
-                sb.append(" <-> ");
-            }
-            atual = atual.getProximo();
-        }
-        sb.append("]");
-        System.out.println(sb.toString());
     }
 }

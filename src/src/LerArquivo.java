@@ -3,22 +3,13 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class LerArquivo {
-
-    public static void main(String[] args) {
-
-        ListaDeProcessos lista = new ListaDeProcessos();
-
-        try {
-            File arquivo = new File("entrada.txt");
-            Scanner leitorDeLinhas = new Scanner(arquivo);
-
-            System.out.println("Lendo arquivo 'entrada.txt'...");
-
-            while (leitorDeLinhas.hasNextLine()) {
-                String linha = leitorDeLinhas.nextLine();
-
+    public static ListaDeProcessos carregarProcessos(String nomeDoArquivo) {
+        ListaDeProcessos listaDeProcessos = new ListaDeProcessos();
+        try (Scanner leitor = new Scanner(new File(nomeDoArquivo))) {
+            System.out.println("Lendo processos do arquivo '" + nomeDoArquivo + "'...");
+            while (leitor.hasNextLine()) {
+                String linha = leitor.nextLine();
                 String[] dados = linha.split(",");
-
                 if (dados.length == 5) {
                     try {
                         int id = Integer.parseInt(dados[0].trim());
@@ -26,24 +17,17 @@ public class LerArquivo {
                         int prioridade = Integer.parseInt(dados[2].trim());
                         int ciclos = Integer.parseInt(dados[3].trim());
                         String recurso = dados[4].trim();
-
-                        Processo p = new Processo(id, nome, prioridade, ciclos, recurso);
-
-                        lista.inserirProcesso(p);
-
+                        // Adiciona o processo através do "gerente"
+                        listaDeProcessos.adicionarProcesso(new Processo(id, nome, prioridade, ciclos, recurso));
                     } catch (NumberFormatException e) {
-                        System.out.println("Erro ao converter um número na linha: '" + linha + "'. Linha ignorada.");
+                        System.out.println("AVISO: Linha ignorada por erro de formato: '" + linha + "'");
                     }
-                } else {
-                    System.out.println("Linha mal formatada encontrada e ignorada: '" + linha + "'");
                 }
             }
-            leitorDeLinhas.close();
-
-            lista.printProcessos();
-
         } catch (FileNotFoundException e) {
-            System.out.println("ERRO: Arquivo 'entrada.txt' não encontrado. Verifique se ele está na pasta correta.");
+            System.out.println("ERRO CRArquivo '" + nomeDoArquivo + "' nencontrado.");
         }
+        System.out.println("Processos carregados com sucesso.");
+        return listaDeProcessos;
     }
 }
