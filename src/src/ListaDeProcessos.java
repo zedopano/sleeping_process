@@ -21,12 +21,12 @@ public class ListaDeProcessos {
         listaInterna.setHead(p);
     }
 
-    // MNOVO QUE ESTAVA FALTANDO
+    // NOVO QUE ESTAVA FALTANDO
     public Processo getTail() {
         return listaInterna.getTail();
     }
 
-    // MNOVO QUE ESTAVA FALTANDO
+    // NOVO QUE ESTAVA FALTANDO
     public void setTail(Processo p) {
         listaInterna.setTail(p);
     }
